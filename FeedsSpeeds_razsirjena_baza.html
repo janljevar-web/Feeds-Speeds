@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feeds &amp; Speeds – Haas</title>
+<style id="css_wild">
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Comic Sans MS","Comic Neue","Chalkboard SE",Arial,sans-serif;font-size:14px;color:#2b0a4a;
+ background:#7cc8f2 linear-gradient(#5db7ee,#c4e8ff 60%,#ffffff);background-attachment:fixed;min-height:100%}
+/* mavrica in sonce v ozadju */
+body:before{content:"";position:fixed;left:-10%;right:-10%;top:0;bottom:0;z-index:-2;
+ background:radial-gradient(ellipse 75% 70% at 50% 118%,transparent 60%,#ff2a2a 60.5%,#ff9a00 63.5%,#ffee00 66.5%,#27d227 69.5%,#1e90ff 72.5%,#3a2fd8 75.5%,#a02be0 78%,transparent 78.6%);
+ animation:rb 9s ease-in-out infinite alternate}
+@keyframes rb{0%{background-position:-30px 0}100%{background-position:30px 0}}
+.deco{position:fixed;z-index:-1;pointer-events:none;font-family:"Segoe UI Symbol","Arial Unicode MS",Arial,sans-serif;line-height:1}
+.sun{right:-30px;top:-34px;font-size:190px;color:#ffae00;text-shadow:0 0 30px #fff3a0,0 0 60px #ffd54a;animation:spin 24s linear infinite}
+.st1{left:12px;top:84px;font-size:96px;color:#f2d600;text-shadow:3px 3px 0 #a08800;animation:flt 3.2s ease-in-out infinite}
+.st2{right:30px;top:260px;font-size:76px;color:#f2d600;text-shadow:3px 3px 0 #a08800;animation:flt 2.7s ease-in-out infinite reverse}
+.st3{left:46%;bottom:20px;font-size:54px;color:#fff;text-shadow:0 0 12px #fff,0 0 24px #fff6b0;animation:flt 2.2s ease-in-out infinite}
+.st4{left:4%;bottom:90px;font-size:44px;color:#fff;text-shadow:0 0 12px #fff,0 0 24px #ffe;animation:flt 2.9s ease-in-out infinite reverse}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes flt{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(8deg)}}
+/* trak z napisom */
+.ticker{background:#ff1493;color:#fff;overflow:hidden;white-space:nowrap;border-bottom:3px dotted #ffee00;font-weight:700;padding:3px 0}
+.ticker span{display:inline-block;padding-left:100%;animation:tick 28s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+/* glava */
+header{padding:10px 16px 8px;overflow:hidden;text-align:center;position:relative}
+header .wa{display:inline-block;background:#fff;border:3px solid #ff8c00;padding:2px 26px 0;transform:rotate(-1.5deg);box-shadow:5px 5px 0 #ff1493}
+header h1{margin:0;font-family:Impact,"Arial Narrow",sans-serif;font-weight:400;font-size:40px;letter-spacing:1px;color:#ff9a1a;text-transform:uppercase;
+ text-shadow:1px 1px 0 #a04800,2px 2px 0 #a04800,3px 3px 0 #a04800,4px 4px 0 #7a3600,5px 5px 3px rgba(0,0,0,.4);position:relative;animation:wob 1.3s ease-in-out infinite}
+header .cap{font-size:30px;font-weight:700;color:#ff1493;text-shadow:2px 2px 0 #fff,-1px -1px 0 #fff;margin:2px 0 0;animation:hue 5s linear infinite}
+.chip{display:inline-block;padding:3px 12px;border-radius:14px;font-size:12px;margin:6px 4px 0;border:2px dashed #000;font-weight:700}
+.chip.ok{background:#b7ffb7;color:#064d06}.chip.bad{background:#ffc0cb;color:#8b0000}
+.anim{display:inline-block;margin:6px 4px 0;padding:3px 10px;font-size:12px;background:#fff;border:2px dotted #3a2fd8;border-radius:14px}
+.anim input{margin-right:5px}
+nav{padding:6px 10px;text-align:center}
+.tabbtn{border:3px outset #ffd54a;background:linear-gradient(#fff48a,#ffc400);padding:6px 16px;margin:3px;font:inherit;font-weight:700;cursor:pointer;color:#8a0070;border-radius:10px;text-shadow:1px 1px 0 #fff}
+.tabbtn.on{background:linear-gradient(#ff9ed0,#ff1493);color:#fff;text-shadow:2px 2px 0 #7a0049;border-style:inset}
+.page{padding:10px 16px 30px;max-width:1240px;margin:0 auto}
+.cols{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0 -7px}
+.col{padding:0 7px;-ms-flex:1 1 420px;flex:1 1 420px;min-width:320px}
+.card{background:rgba(255,255,255,.9);border:4px dashed #ff1493;border-radius:14px;padding:12px 14px;margin-bottom:14px;box-shadow:6px 6px 0 rgba(58,47,216,.45)}
+.col>.card:nth-child(odd){transform:rotate(-.5deg);border-color:#ff1493}
+.col>.card:nth-child(even){transform:rotate(.6deg);border-color:#1e90ff;box-shadow:-6px 6px 0 rgba(255,20,147,.4)}
+.col>.card:nth-child(3n){border-color:#27b227;border-style:dotted}
+.card h2{margin:0 0 8px;font-size:17px;text-transform:uppercase;letter-spacing:1px;color:#d6006f;text-shadow:2px 2px 0 #ffee00;animation:hue 6s linear infinite}
+.fld{margin:0 0 9px}
+.fld label,.lbl{display:block;font-size:12px;font-weight:700;margin-bottom:2px;animation:hue 7s linear infinite}
+input[type=text],select,textarea{width:100%;padding:6px 7px;font:inherit;font-weight:700;border:3px dashed #ff69b4;border-radius:6px;background:#fffbc2;color:#4a007a}
+select{background:#e8f6ff;border-color:#1e90ff;border-style:solid}
+input[type=text]:focus,select:focus,textarea:focus{outline:3px solid #27d227;background:#fff}
+.two{display:-ms-flexbox;display:flex;margin:0 -4px}.two>div{-ms-flex:1;flex:1;padding:0 4px}
+.chk{font-size:13px}.chk input{margin-right:6px}
+button{font:inherit;font-weight:700;padding:7px 14px;border:3px outset #ffd54a;background:linear-gradient(#ff9ed0,#ff1493);color:#fff;border-radius:10px;cursor:pointer;text-shadow:2px 2px 0 #7a0049}
+button.sm{padding:3px 9px;font-size:12px;margin-right:4px}
+button.alt{background:linear-gradient(#a8e6ff,#1e90ff);text-shadow:2px 2px 0 #00406e}
+button:active{border-style:inset}
+.banner{padding:9px 12px;border-radius:10px;font-weight:700;font-size:17px;margin-bottom:10px;border:3px dashed #000;text-align:center;animation:wob 1.1s ease-in-out infinite}
+.banner.good{background:#b7ffb7;color:#064d06}.banner.warnb{background:#fff27a;color:#6a3d00}.banner.bad{background:#ffb3c1;color:#8b0000;animation:wob .5s ease-in-out infinite}.banner.wait{background:#e8e0ff;color:#4a007a}
+.big{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0 -4px 8px}
+.bigc{-ms-flex:1 1 45%;flex:1 1 45%;margin:4px;padding:8px 10px;border:3px solid #3a2fd8;border-radius:12px;background:#fff;text-align:center;box-shadow:4px 4px 0 #ffee00}
+.bl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;animation:hue 5s linear infinite}
+.bv{font-size:40px;font-weight:700;line-height:1.1;text-shadow:2px 2px 0 #ffee00;animation:hue 4s linear infinite}
+.bu{font-size:12px;color:#444}
+.gcode{font-family:Consolas,"Courier New",monospace;background:#000;color:#39ff14;padding:8px 12px;border:3px ridge #ff1493;font-size:17px;margin-bottom:8px;text-shadow:0 0 8px #39ff14}
+table.kv{width:100%;border-collapse:collapse;margin-bottom:6px}
+table.kv th{text-align:left;font-weight:400;padding:3px 6px 3px 0;width:55%}
+table.kv td{padding:3px 0;font-weight:700;color:#4a007a}
+ul.warns{margin:6px 0 4px;padding-left:18px}
+ul.warns li{margin:3px 0}
+li.err{color:#c00000;font-weight:700}li.warn{color:#a35200;font-weight:700}li.info{color:#2f2f7a}
+p.sub{font-size:12px;margin:4px 0;color:#3b2b66}
+p.test{background:#fff27a;border:3px dotted #ff8c00;padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;margin:8px 0 0}
+table.cmp{width:100%;border-collapse:collapse}
+table.cmp th{background:linear-gradient(90deg,#ff1493,#ff9a00,#e6d800,#27b227,#1e90ff,#8a2be2);color:#fff;font-size:13px;padding:4px 6px;text-align:center;text-shadow:1px 1px 0 #000}
+table.cmp td{border-bottom:2px dotted #ff69b4;padding:4px 6px;text-align:center;font-weight:700}
+table.cmp td.l{text-align:left}
+table.cmp tr.sel td{background:#fff27a}
+table.cmp td.np{background:#ff4d6d;color:#fff;text-shadow:1px 1px 0 #000;animation:blink 1s steps(2,start) infinite}
+table.list{width:100%;border-collapse:collapse}
+table.list th{background:#ff1493;color:#fff;padding:5px 7px;font-size:13px;text-align:left;text-shadow:1px 1px 0 #000}
+table.list td{padding:5px 7px;border-bottom:2px dotted #1e90ff}
+table.grid{border-collapse:collapse;margin-bottom:6px}
+table.grid th{background:#ffe6f4;font-size:11px;padding:3px 6px}
+table.grid th.rl{text-align:left;white-space:nowrap}
+table.grid td{padding:1px}
+.cell{width:76px;padding:3px 4px;font-size:12px;text-align:center}
+.sec h3{margin:14px 0 4px;font-size:15px;color:#1e5ad8}
+.q{font-size:18px;font-weight:700;margin-top:6px;color:#d6006f;text-shadow:2px 2px 0 #ffee00}
+.note{font-size:12px;color:#7a4b00;background:#fff27a;padding:6px 9px;border-radius:6px;display:none;margin-bottom:8px;border:2px dashed #ff8c00}
+.help h3{margin:14px 0 4px}.help p,.help li{line-height:1.5}
+.help code{background:#fff27a;padding:1px 4px;border-radius:3px}
+/* nihanje besedila levo-desno in menjava barv */
+header h1,.card h2,.fld label,.bl,.bv,.banner,.tabbtn,.card p,.card li,.card th,.card td,.q,.cap,.chip,.anim{position:relative}
+.fld label,.card p,.card li,.card th,.card td,.q,.bl,.bu,.tabbtn,.chip{animation-name:wob;animation-duration:1.7s;animation-iteration-count:infinite;animation-timing-function:ease-in-out}
+.card h2,.fld label,.bl,.bv,.cap{animation-name:wob,hue;animation-duration:1.5s,6s;animation-iteration-count:infinite,infinite;animation-timing-function:ease-in-out,linear}
+.fld:nth-child(2n) label{animation-duration:1.2s,5s}
+.fld:nth-child(3n) label{animation-duration:2.1s,8s}
+.card td:nth-child(2n),.card th:nth-child(2n){animation-duration:1.3s}
+.card li:nth-child(2n){animation-duration:1.1s}
+.bigc:nth-child(2) .bv{animation-duration:1.9s,3.3s}
+.bigc:nth-child(3) .bv{animation-duration:1.4s,4.7s}
+@keyframes wob{0%,100%{left:0}25%{left:-3px}75%{left:3px}}
+@keyframes hue{0%{color:#e6007a}17%{color:#8a00d4}34%{color:#0057d9}50%{color:#008a2e}67%{color:#e06600}84%{color:#d40000}100%{color:#e6007a}}
+@keyframes blink{50%{opacity:.35}}
+.calm *,.calm *:before{animation:none!important}
+.calm .deco{display:none}
+.calm .tabbtn,.calm .card{transform:none!important}
+@media (prefers-reduced-motion:reduce){*,*:before{animation:none!important}}
+@media print{header,nav,.ticker,.deco,.col.left,#tab_tools,#tab_mach,#tab_data,#tab_help,button{display:none!important}}
+</style>
+<style id="css_plain" media="not all">
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;font-size:14px;color:#1b1f2a;background:#e9ecf2}
+header{background:#000080;color:#fff;padding:10px 16px;overflow:hidden}
+header h1{margin:0;font-size:18px;float:left;font-weight:600;letter-spacing:.2px}
+.chip{float:right;padding:4px 10px;border-radius:12px;font-size:12px;margin-top:2px}
+.chip.ok{background:#c6efce;color:#14532d}.chip.bad{background:#ffc7ce;color:#7f1d1d}
+nav{background:#fff;border-bottom:1px solid #c8cdd8;padding:0 10px}
+.tabbtn{border:0;background:none;padding:11px 16px;font:inherit;cursor:pointer;color:#445;border-bottom:3px solid transparent}
+.tabbtn.on{color:#000080;font-weight:600;border-bottom-color:#000080}
+.page{padding:14px 16px;max-width:1240px;margin:0 auto}
+.cols{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0 -7px}
+.col{padding:0 7px;-ms-flex:1 1 420px;flex:1 1 420px;min-width:320px}
+.card{background:#fff;border:1px solid #c8cdd8;border-radius:6px;padding:12px 14px;margin-bottom:12px}
+.card h2{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:#000080}
+.fld{margin:0 0 9px}
+.fld label,.lbl{display:block;font-size:12px;color:#556;margin-bottom:2px}
+input[type=text],select,textarea{width:100%;padding:6px 7px;font:inherit;border:1px solid #aab1c2;border-radius:4px;background:#fffdf3;color:#111}
+select{background:#fff}
+input[type=text]:focus,select:focus,textarea:focus{outline:2px solid #6b7bd6;border-color:#6b7bd6}
+.two{display:-ms-flexbox;display:flex;margin:0 -4px}.two>div{-ms-flex:1;flex:1;padding:0 4px}
+.chk{font-size:13px}.chk input{margin-right:6px}
+button{font:inherit;padding:7px 14px;border:1px solid #000080;background:#000080;color:#fff;border-radius:4px;cursor:pointer}
+button.sm{padding:3px 9px;font-size:12px;margin-right:4px}
+button.alt{background:#fff;color:#000080}
+.banner{padding:9px 12px;border-radius:5px;font-weight:600;margin-bottom:10px}
+.banner.good{background:#c6efce;color:#14532d}.banner.warnb{background:#ffeb9c;color:#7a4b00}.banner.bad{background:#ffc7ce;color:#7f1d1d}.banner.wait{background:#e3e6ee;color:#445}
+.big{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0 -4px 8px}
+.bigc{-ms-flex:1 1 45%;flex:1 1 45%;margin:4px;padding:8px 10px;border:1px solid #c8cdd8;border-radius:5px;background:#f6f8ff;text-align:center}
+.bl{font-size:11px;color:#556;text-transform:uppercase;letter-spacing:.5px}
+.bv{font-size:34px;font-weight:700;color:#000080;line-height:1.15}
+.bu{font-size:11px;color:#667}
+.gcode{font-family:Consolas,"Courier New",monospace;background:#111827;color:#a7f3d0;padding:8px 12px;border-radius:5px;font-size:16px;margin-bottom:8px}
+table.kv{width:100%;border-collapse:collapse;margin-bottom:6px}
+table.kv th{text-align:left;font-weight:400;color:#556;padding:3px 6px 3px 0;width:55%}
+table.kv td{padding:3px 0;font-weight:600}
+ul.warns{margin:6px 0 4px;padding-left:18px}
+ul.warns li{margin:3px 0}
+li.err{color:#b91c1c;font-weight:600}li.warn{color:#9a5b00}li.info{color:#475569}
+p.sub{color:#556;font-size:12px;margin:4px 0}
+p.test{background:#fff7d6;border:1px solid #ecd47a;padding:7px 10px;border-radius:4px;font-size:12px;margin:8px 0 0}
+table.cmp{width:100%;border-collapse:collapse}
+table.cmp th{background:#000080;color:#fff;font-size:12px;padding:4px 6px;text-align:center}
+table.cmp td{border-bottom:1px solid #e1e4ec;padding:4px 6px;text-align:center}
+table.cmp td.l{text-align:left;font-weight:600}
+table.cmp tr.sel td{background:#eef1ff}
+table.cmp td.np{background:#ffc7ce;color:#7f1d1d;font-weight:600}
+table.list{width:100%;border-collapse:collapse}
+table.list th{background:#000080;color:#fff;padding:5px 7px;font-size:12px;text-align:left}
+table.list td{padding:5px 7px;border-bottom:1px solid #e1e4ec}
+table.grid{border-collapse:collapse;margin-bottom:6px}
+table.grid th{background:#dde2f2;font-size:11px;padding:3px 6px;font-weight:600}
+table.grid th.rl{text-align:left;white-space:nowrap}
+table.grid td{padding:1px}
+.cell{width:76px;padding:3px 4px;font-size:12px;text-align:center}
+.sec h3{margin:14px 0 4px;font-size:14px}
+.q{font-size:15px;font-weight:600;color:#000080;margin-top:6px}
+.note{font-size:12px;color:#7a4b00;background:#fff7d6;padding:6px 9px;border-radius:4px;display:none;margin-bottom:8px}
+.help h3{margin:14px 0 4px}.help p,.help li{line-height:1.5}
+.help code{background:#eef0f6;padding:1px 4px;border-radius:3px}
+@media print{header,nav,.col.left,#tab_tools,#tab_mach,#tab_data,#tab_help,button{display:none!important}}
+
+.ticker,.deco,.anim,.cap{display:none}
+header .wa{float:left}
+header .wa h1{font-size:18px;font-weight:600;float:none}
+</style>
+</head>
+<body>
+<span class="deco sun">&#9728;</span><span class="deco st1">&#9733;</span><span class="deco st2">&#9733;</span><span class="deco st3">&#10022;</span><span class="deco st4">&#10022;</span>
+<div class="ticker"><span>&#9733; NAJBOLJŠI KALKULATOR POMIKOV NA INTERNETIH!!!!!!! &#9733; RPM &#9733; FEED &#9733; FPT &#9733; CS &#9733; PRVI REZ PRI 80 %!!! &#9733; DOBRODOŠEL NA STROJU! &#9733;</span></div>
+<header><div class="wa"><h1>Feeds &amp; Speeds</h1></div>
+<div class="cap">najbolj&scaron;i kalkulator za Haas!!!!!!!</div>
+<span id="machchip" class="chip bad">Stroj</span></header>
+<nav>
+<button id="btn_calc" class="tabbtn on" type="button">Kalkulator</button><button id="btn_tools" class="tabbtn" type="button">Orodja</button><button id="btn_mach" class="tabbtn" type="button">Nastavitve</button><button id="btn_data" class="tabbtn" type="button">Podatki</button><button id="btn_help" class="tabbtn" type="button">Pomoč</button>
+</nav>
+<div class="page">
+<div id="lsnote" class="note">Brskalnik ne dovoli shranjevanja (localStorage): nastavitve in baza orodij se ne ohranijo. Uporabi izvoz CSV.</div>
+
+<div id="tab_calc">
+<div class="cols">
+<div class="col left">
+ <div class="card"><h2>1. Izberi orodje</h2><p class="sub">Najprej izberi tip in vnesi premer. Polja, ki niso pomembna za izbrano orodje, se skrijejo.</p>
+  <div class="two"><div class="fld"><label>ID</label><input type="text" id="f_id"></div>
+  <div class="fld"><label>Tip</label><select id="f_tip"></select></div></div>
+  <div class="two"><div class="fld"><label>Premer Ø (mm)</label><input type="text" id="f_d"></div>
+  <div class="fld"><label>Zobje</label><input type="text" id="f_z"></div></div>
+  <div class="two"><div class="fld"><label id="lbl_L">Previs orodja L (mm)</label><input type="text" id="f_L" placeholder="prazno = 3×Ø"></div>
+  <div class="fld" id="row_flute"><label>Rezalni del (mm)</label><input type="text" id="f_flute"></div></div>
+  <div class="fld" id="row_thread"><div class="two"><div><label>Ø navoja (mm)</label><input type="text" id="f_thread" placeholder="npr. 8 za M8"></div><div><label>Navoj</label><select id="f_tint"><option value="1">notranji</option><option value="0">zunanji</option></select></div></div></div>
+   <div class="fld" id="row_pitch" style="display:none"><label>Korak navoja P (mm)</label><input type="text" id="f_pitch" placeholder="npr. 1,25 za M8×1,25"></div>
+  <div class="two"><div class="fld"><label>Rezkar narejen za</label><select id="f_cutter"></select></div>
+  <div class="fld"><label>Material orodja</label><select id="f_tmat"></select></div></div>
+  <div class="two"><div class="fld"><label>Prevleka</label><select id="f_coat"></select></div>
+  <div class="fld"><label>Vpetje</label><select id="f_hold"></select></div></div>
+  <button id="btn_save" type="button" class="alt">Shrani orodje v bazo</button> <span id="savemsg" class="sub">&nbsp;</span>
+ </div>
+ <div class="card"><h2>2. Obdelovanec</h2><p class="sub">Izberi material, nato po potrebi popravi trdoto in stanje površine.</p>
+  <div class="two"><div class="fld"><label>Material</label><select id="f_mat"></select></div>
+  <div class="fld"><label>Cilj CS v razponu</label><select id="f_csm"><option value="min">min (dolga življenjska doba)</option><option value="sredina" selected>sredina</option><option value="max">max (hitro)</option></select></div></div>
+  <div class="two"><div class="fld"><label>Trdota</label><input type="text" id="f_hard"></div>
+  <div class="fld"><label>Enota</label><select id="f_hunit"><option>HB</option><option>HRC</option></select></div></div>
+  <div class="fld chk"><label><input type="checkbox" id="f_skorja">Surovec s skorjo (litje/kovanje, CS × 0,8)</label></div>
+ </div>
+ <div class="card"><h2>3. Način obdelave</h2><p class="sub">Pri rezkanju vnesi ap in ae ali pusti samodejne predloge.</p>
+  <div class="fld" id="lbl_op"><label>Operacija</label><select id="f_op"></select></div>
+  <div id="card_op_eng"><div class="two"><div class="fld"><label>ap – globina (mm)</label><input type="text" id="f_ap"></div>
+  <div class="fld"><label>ae – širina (mm)</label><input type="text" id="f_ae"></div></div></div>
+  <div class="fld"><label>Hlajenje</label><select id="f_cool"></select></div>
+  <p><button id="btn_clear_form" type="button" class="alt">Počisti vse vnose</button> <span class="sub">Ponastavi kalkulator in hitri preračun; baza orodij in nastavitve stroja ostanejo shranjene.</span></p>
+ </div>
+</div>
+<div class="col">
+ <div class="card"><h2>Izračunani parametri</h2><div id="res"></div></div>
+ <div class="card"><h2>Primerjava po materialih (isto orodje)</h2><div id="cmp"></div></div>
+ <div class="card"><h2>Hitri preračun mer</h2>
+  <div class="two"><div class="fld"><label>Ø (mm)</label><input type="text" id="q_d"></div><div class="fld"><label>Zobje</label><input type="text" id="q_z"></div></div>
+  <div class="two"><div class="fld"><label>CS (m/min)</label><input type="text" id="q_cs"></div><div class="fld"><label>RPM</label><input type="text" id="q_n"></div></div>
+  <div class="two"><div class="fld"><label>FPT (mm/zob)</label><input type="text" id="q_fz"></div><div class="fld"><label>Feed (mm/min)</label><input type="text" id="q_f"></div></div>
+  <div class="q" id="q_out">&nbsp;</div><p class="sub">Vpiši par (CS ali RPM) in par (FPT ali Feed), manjkajoče izračuna.</p>
+  <button id="q_clear" type="button" class="alt">Počisti</button>
+ </div>
+</div>
+</div>
+</div>
+
+<div id="tab_tools" style="display:none">
+ <div class="card"><h2>Baza orodij</h2>
+  <div class="two"><div class="fld"><label>Išči (ID, tip, Ø)</label><input type="text" id="tfilter"></div><div class="fld"><label>&nbsp;</label><span id="toolcount" class="sub">0</span></div></div>
+  <table class="list"><thead><tr><th>ID</th><th>Tip</th><th>Ø</th><th>Zobje</th><th>Previs</th><th>Rezkar za</th><th>Material</th><th>Prevleka</th><th></th></tr></thead><tbody id="toolrows"></tbody></table>
+  <p class="sub">Orodje shraniš v bazo iz kalkulatorja. Z »Naloži« ga preneseš nazaj v kalkulator. Pri navojnem svedru je pomemben korak navoja P.</p>
+ </div>
+ <div class="card"><h2>Izvoz / uvoz (CSV)</h2>
+  <textarea id="csvbox" rows="7" placeholder="ID;TIP;Premer;Zobje;Previs;RezalniDel;RezkarZa;MaterialOrodja;Prevleka;Vpetje"></textarea>
+  <p><button id="btn_export" type="button">Izvozi in prenesi</button> <button id="btn_import" type="button" class="alt">Uvozi iz polja</button> <input type="file" id="csvfile" accept=".csv,.txt"></p>
+ </div>
+</div>
+
+<div id="tab_mach" style="display:none">
+ <div class="card"><h2>Videz</h2>
+  <div class="fld"><label>Tema</label><select id="s_theme"><option value="wild">Noro (retro mavrica)</option><option value="plain">Navadno (mirno)</option></select></div>
+  <div class="fld chk"><label><input type="checkbox" id="s_anim" checked>Animacije (samo pri temi Noro)</label></div>
+ </div>
+ <div class="card"><h2>Stroj (Haas)</h2>
+  <div class="fld"><label>Ime stroja</label><input type="text" id="m_name"></div>
+  <div class="two"><div class="fld"><label>Največji RPM vretena</label><input type="text" id="m_rpm"></div><div class="fld"><label>Moč vretena (kW)</label><input type="text" id="m_kw"></div></div>
+  <div class="two"><div class="fld"><label>Navor vretena (Nm)</label><input type="text" id="m_nm"></div><div class="fld"><label>Varnostni faktor (0,8 = 80 %)</label><input type="text" id="m_safe"></div></div>
+  <div class="fld chk"><label><input type="checkbox" id="m_conf">Podatke sem vnesel iz priročnika stroja (potrdi)</label></div>
+  <p class="sub">Vnesi vrednosti iz priročnika za svoj stroj. Dokler niso potrjene, program prikazuje opozorilo. Moč pada pri nižjih vrtljajih: pri nizkem RPM vnesi nižjo (realno) moč.</p>
+ </div>
+ <div class="card"><h2>Zaokroževanje</h2>
+  <div class="two"><div class="fld"><label>RPM korak</label><input type="text" id="r_rpm"></div><div class="fld"><label>Feed korak (mm/min)</label><input type="text" id="r_feed"></div></div>
+ </div>
+</div>
+
+<div id="tab_data" style="display:none">
+ <div class="card"><h2>Podatki (vse tabele so urejljive, spremembe se shranijo samodejno)</h2>
+  <p><button id="btn_reset" type="button" class="alt">Ponastavi vse na privzeto</button></p>
+  <div id="datahost"></div>
+ </div>
+</div>
+
+<div id="tab_help" style="display:none">
+ <div class="card help"><h2>Pomoč in opombe</h2>
+  <h3>Kaj program računa</h3>
+  <p>Izhodišče sta tvoja tabela CS (po materialu) in tabela FPT (po premeru). Nanju se uporabijo korekcije: trdota obdelovanca, previs orodja (L/D) ali globina vrtine, material orodja, prevleka, hlajenje, vpetje, operacija in stanjšanje ostružka pri majhnem ae.</p>
+  <p><code>RPM = CS × 1000 / (π × Ø)</code> &nbsp; <code>Feed = FPT × zobje × RPM</code> &nbsp; <code>CS = Ø × π × RPM / 1000</code></p>
+  <p>Operacija »Po tabeli (brez korekcij)« da enake vrednosti kot Excel tabela (preverjeno).</p>
+  <h3>Preverjanja</h3>
+  <ul><li>Moč in navor se ocenita iz specifične rezalne sile (kc1.1) in primerjata z nastavitvami stroja.</li>
+  <li>Upogib orodja se oceni kot konzolni nosilec (previs, premer jedra, E orodja). Če je prevelik, se pomik zmanjša.</li>
+  <li>Rezkar za aluminij ali jeklo: če ni primeren za izbran material, piše »ni primeren«.</li>
+  <li>BM: RPM se računa po efektivnem premeru, če je ap &lt; Ø/2.</li></ul>
+  <h3>Razširjena baza materialov</h3>
+  <p>Vključene so splošne skupine aluminija, medenine, bakra, brona, konstrukcijskih in legiranih jekel, orodnih jekel, nerjavnih in dupleks jekel, sivih/nodularnih litin, titana, Inconela ter kaljenih jekel. Oznake ISO P, M, K, N, S in H sledijo običajni razdelitvi materialov za odrezavanje.</p>
+  <h3>Omejitve</h3>
+  <p>To je inženirska ocena z orientacijskimi vrednostmi. Točnost je odvisna od tvojih podatkov o orodju, materialu in stroju. Če imaš kataloške vrednosti proizvajalca, jih vnesi v tabele (zavihek Podatki). Vedno začni pri 80 % pomika in izboljšuj po zvoku, ostružku in obrabi orodja.</p>
+  <h3>Kirner in navojni sveder</h3>
+   <p>Kirner je dodan kot centrirni/spot sveder z dvema reziloma. Navojni sveder uporablja vneseni korak P: pomik je RPM × P. Pri navoju uporabi sinhrono ciklično vrezovanje (npr. G84), ne navadnega podajanja osi. Za oba tipa so začetne CS/FPT vrednosti orientacijske in jih pred uporabo uskladi s katalogom proizvajalca.</p>
+   <h3>Plunge in retract</h3>
+  <p>Program ju ne računa; ostaneta ročna, kot v tvoji tabeli.</p>
+  <h3>Shranjevanje</h3>
+  <p>Baza orodij in nastavitve se shranjujejo v brskalniku tega računalnika. Za varnostno kopijo uporabi izvoz CSV v zavihku Orodja. Če počistiš podatke brskalnika, se izgubijo.</p>
+ </div>
+</div>
+</div>
+<script>
+/* Feeds & Speeds – računsko jedro (ES5, brez odvisnosti) */
+var FS = (function () {
+  'use strict';
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function r3(x) { return Math.round(x * 1000) / 1000; }
+  function stepRound(x, step) {
+    if (!step || step <= 0) return Math.round(x);
+    var k = Math.round(x / step);
+    return k === 0 ? Math.round(x) : k * step;
+  }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+  /* ---------- privzeti podatki (vse je urejljivo v zavihku Podatki) ---------- */
+  function defaults() {
+    /* Razširjena baza materialov. Prvih šest imen ostane nespremenjenih zaradi združljivosti.
+       Vrednosti so začetne ocene za splošno VHM/karbidno rezkanje, ne katalog določenega orodja. */
+    var mats = [
+      'Aluminij', 'Medenina', 'Konstrukcijsko', 'Legirano', 'HSS', 'Rostfrei',
+      'Aluminij 6061/6082 (ISO N)', 'Aluminij 7075 (ISO N)', 'Aluminij liti Al-Si (ISO N)',
+      'Baker in zlitine Cu (ISO N)', 'Bron (ISO N)', 'S235/S355 (ISO P)', 'C45 / 1.0503 (ISO P)',
+      '42CrMo4 / 1.7225 (ISO P)', 'Orodno jeklo žarjeno (ISO P)', 'Nerjavno 304 / 1.4301 (ISO M)',
+      'Nerjavno 316 / 1.4404 (ISO M)', 'Dupleks 2205 (ISO M)', 'Siva litina EN-GJL (ISO K)',
+      'Nodularna litina EN-GJS (ISO K)', 'Titan Ti-6Al-4V (ISO S)', 'Inconel 718 (ISO S)',
+      'Kaljeno jeklo 50–60 HRC (ISO H)', 'Orodno jeklo 60–62 HRC (ISO H)'
+    ];
+    /* Faktorji FPT glede na osnovno tabelo aluminija za posamezne materialne skupine. */
+    var mf = [1, 0.85, 0.5, 0.4, 0.3, 0.4, 0.95, 0.9, 0.8, 0.55, 0.5, 0.55, 0.45, 0.35, 0.35, 0.32, 0.28, 0.23, 0.45, 0.4, 0.18, 0.12, 0.1, 0.07];
+    /* Za dodatne materiale podedujemo korekcije površine/hlajenja/ap-ae od najbližje skupine. */
+    var family = [0, 1, 2, 3, 4, 5, 0, 0, 0, 1, 1, 2, 2, 3, 3, 5, 5, 5, 4, 4, 4, 4, 4, 4];
+    function expandByFamily(base) {
+      var out = [], r, c;
+      for (r = 0; r < base.length; r++) {
+        var row = [];
+        for (c = 0; c < family.length; c++) row.push(base[r][family[c]]);
+        out.push(row);
+      }
+      return out;
+    }
+    var alu = {
+      'EM': [[1, .005], [2, .01], [5, .03], [8, .06], [10, .08], [12, .105], [16, .13], [20, .15], [25, .17]],
+      'Sveder': [[2, .02], [5, .03], [8, .08], [10, .09], [16, .12], [20, .16]],
+      'Glava': [[20, .08], [32, .10], [50, .10], [63, .11], [80, .12], [100, .12]],
+      'Gravirnik': [[1, .003], [3, .006], [6, .009], [8, .01], [12, .012]],
+      'BM': [[1, .004], [2, .008], [5, .024], [8, .048], [10, .064], [12, .084], [16, .104], [20, .12]],
+      'Navojno frezalo': [[3, .008], [5, .015], [8, .025], [10, .03], [16, .05], [20, .06]],
+      'Povrtalo': [[3, .02], [6, .03], [10, .04], [16, .05], [20, .06]],
+      'Kirner': [[2, .006], [3, .008], [4, .01], [6, .012], [8, .015], [10, .018], [12, .02]],
+      'Navojni sveder': [[2, .01], [3, .015], [4, .02], [6, .025], [8, .03], [10, .035], [12, .04]]
+    };
+    var fpt = {}, k, i, j;
+    for (k in alu) {
+      fpt[k] = [];
+      for (i = 0; i < alu[k].length; i++) {
+        var row = [alu[k][i][0]];
+        for (j = 0; j < mats.length; j++) row.push(Math.round(alu[k][i][1] * mf[j] * 10000) / 10000);
+        fpt[k].push(row);
+      }
+    }
+    var tools = ['EM', 'Sveder', 'Glava', 'Gravirnik', 'BM', 'Navojno frezalo', 'Povrtalo', 'Kirner', 'Navojni sveder'];
+    return {
+      version: 3,
+      mats: mats,
+      cs: [
+        [200, 250], [150, 200], [100, 150], [80, 120], [50, 80], [80, 100],
+        [200, 250], [160, 220], [160, 220], [100, 150], [80, 130], [100, 145],
+        [75, 115], [55, 85], [45, 75], [45, 75], [35, 65], [25, 50],
+        [100, 160], [90, 145], [20, 40], [15, 30], [20, 35], [12, 25]
+      ],
+      hbDefault: [95, 100, 200, 280, 430, 200, 95, 150, 80, 90, 130, 180, 200, 280, 240, 190, 210, 260, 190, 220, 330, 350, 520, 600],
+      hbref: [100, 110, 200, 280, 450, 200, 100, 150, 90, 100, 140, 190, 200, 280, 250, 200, 220, 270, 190, 220, 330, 350, 550, 620],
+      hexpCS: [0.3, 0.3, 1.2, 1.2, 1.2, 1.0, 0.3, 0.8, 0.3, 0.8, 0.9, 1.2, 1.2, 1.2, 1.2, 1.0, 1.0, 1.0, 1.0, 1.0, 0.7, 0.8, 0.6, 0.5],
+      hexpF: [0.1, 0.1, 0.5, 0.5, 0.5, 0.5, 0.1, 0.25, 0.1, 0.3, 0.3, 0.5, 0.5, 0.5, 0.5, 0.4, 0.4, 0.4, 0.5, 0.5, 0.3, 0.3, 0.2, 0.2],
+      kc: [500, 650, 1500, 1700, 2600, 1900, 500, 650, 450, 700, 900, 1500, 1800, 2100, 2000, 1800, 1900, 2200, 1300, 1500, 1800, 2400, 2800, 3200],
+      tools: tools,
+      toolCS: [1, 0.4, 2 / 3, 1, 1, 0.8, 0.25, 0.35, 0.12],
+      toolZ: [3, 2, 4, 1, 2, 3, 6, 2, 3],
+      fpt: fpt,
+      teeth: [
+        [1, 1, 1.2, 1, .9, 1.1, 1.5, 1, 1], [1.1, 1, 1.1, 1, 1, 1.05, 1.4, 1, 1], [1, .8, 1.05, 1, .9, 1, 1.3, 1, 1],
+        [1, .7, 1, 1, .8, .95, 1.2, 1, 1], [.9, .6, .95, 1, .7, .9, 1.1, 1, 1], [.85, .6, .9, 1, .65, .85, 1, 1, 1],
+        [.8, .6, .85, 1, .6, .8, .95, 1, 1], [.75, .6, .8, 1, .6, .8, .9, 1, 1], [.7, .6, .75, 1, .6, .8, .9, 1, 1],
+        [.7, .6, .7, 1, .6, .8, .85, 1, 1], [.65, .6, .7, 1, .6, .8, .85, 1, 1], [.65, .6, .65, 1, .6, .8, .8, 1, 1]
+      ],
+      cutterNames: ['Aluminij', 'Jeklo', 'Univerzalno'],
+      cutterOk: [
+        mats.map(function (_, i) { return [0, 1, 6, 7, 8, 9, 10].indexOf(i) >= 0 ? 'da' : 'ne'; }),
+        mats.map(function (_, i) { return [2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23].indexOf(i) >= 0 ? 'da' : 'ne'; }),
+        mats.map(function () { return 'da'; })
+      ],
+      cutterHrcMax: [60, 50, 50],
+      tmatNames: ['Karbid', 'HSS-Co', 'HSS'],
+      tmatCS: [1, 0.45, 0.35], tmatFZ: [1, 0.85, 0.75], tmatE: [600000, 210000, 210000],
+      coatNames: ['Brez', 'TiN', 'TiAlN / AlTiN', 'ZrN', 'DLC'],
+      coat: expandByFamily([[1, 1, 1, 1, 1, 1], [0.9, 1, 1.15, 1.15, 1.1, 1.1], [0.7, 0.9, 1.3, 1.3, 1.25, 1.2], [1.1, 1.1, 1, 1, 1, 1], [1.3, 1.2, 0.5, 0.5, 0.5, 0.5]]),
+      coatBad: expandByFamily([[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1]]),
+      coolNames: ['Emulzija', 'Notranje hlajenje', 'MQL', 'Zračni pihalnik', 'Suho'],
+      cool: expandByFamily([[1, 1, 1, 1, 1, 1], [1.05, 1.05, 1.1, 1.1, 1.1, 1.15], [1, 1, .9, .9, .85, .8], [.85, .9, .8, .8, .7, .6], [.6, .8, .6, .55, .5, .4]]),
+      holdNames: ['ER vpenjalka', 'Termično (shrink fit)', 'Hidravlično', 'Weldon / stranski vijak', 'Vrtalna glava'],
+      holdFZ: [1, 1.05, 1.05, 0.9, 0.8],
+      opNames: ['Po tabeli (brez korekcij)', 'Utor (polno)', 'Grobo', 'Poldokončno', 'Fino'],
+      opCS: [1, 0.8, 0.9, 1, 1.1],
+      opFZ: [1, 0.8, 1, 0.8, 0.6],
+      opThin: [0, 0, 1, 1, 1],
+      opDefl: [0.05, 0.04, 0.05, 0.03, 0.015],
+      stick: [[3, 1, 1], [4, 0.95, 0.9], [5, 0.85, 0.8], [6, 0.75, 0.7], [8, 0.6, 0.55], [999, 0.5, 0.4]],
+      depth: [[3, 1, 1], [5, 0.9, 0.85], [8, 0.8, 0.7], [12, 0.65, 0.55], [999, 0.5, 0.4]],
+      apae: (function () {
+        var base = [[1, .5, 3, .75], [1, .4, 2.5, .75], [.8, .3, 2, .7], [.6, .25, 1.5, .7], [.5, .2, 1, .6], [.6, .25, 1.5, .65]], out = [], i;
+        for (i = 0; i < family.length; i++) out.push(base[family[i]].slice(0));
+        return out;
+      })(),
+      skorjaCS: 0.8,
+      rounding: { rpm: 100, feed: 10 },
+      eff: 0.85, mc: 0.25, coreRatio: 0.75, radialRatio: 0.5
+    };
+  }
+  function defaultMachine() {
+    return { name: 'Haas (vnesi podatke stroja)', maxRpm: 10000, kw: 10, nm: 60, safety: 0.8, confirmed: false };
+  }
+
+  /* ---------- trdota ---------- */
+  var HRC_HB = [[20, 226], [25, 253], [30, 286], [35, 327], [40, 371], [45, 421], [50, 481], [55, 545], [60, 613]];
+  function hrcToHb(h) {
+    var i;
+    if (h <= HRC_HB[0][0]) return HRC_HB[0][1];
+    for (i = 0; i < HRC_HB.length - 1; i++) {
+      if (h <= HRC_HB[i + 1][0]) { var t = (h - HRC_HB[i][0]) / (HRC_HB[i + 1][0] - HRC_HB[i][0]); return HRC_HB[i][1] + t * (HRC_HB[i + 1][1] - HRC_HB[i][1]); }
+    }
+    return HRC_HB[HRC_HB.length - 1][1];
+  }
+  function hbToHrc(b) {
+    var i;
+    if (b < HRC_HB[0][1]) return null;
+    for (i = 0; i < HRC_HB.length - 1; i++) {
+      if (b <= HRC_HB[i + 1][1]) { var t = (b - HRC_HB[i][1]) / (HRC_HB[i + 1][1] - HRC_HB[i][1]); return HRC_HB[i][0] + t * (HRC_HB[i + 1][0] - HRC_HB[i][0]); }
+    }
+    return HRC_HB[HRC_HB.length - 1][0];
+  }
+
+  function interp(rows, d, col) {
+    var n = rows.length, i;
+    if (d <= rows[0][0]) return rows[0][col + 1];
+    if (d >= rows[n - 1][0]) return rows[n - 1][col + 1];
+    for (i = 0; i < n - 1; i++) {
+      if (d >= rows[i][0] && d <= rows[i + 1][0]) {
+        var t = (d - rows[i][0]) / (rows[i + 1][0] - rows[i][0]);
+        return rows[i][col + 1] + t * (rows[i + 1][col + 1] - rows[i][col + 1]);
+      }
+    }
+    return rows[n - 1][col + 1];
+  }
+  function bucket(tab, r, which) {
+    var i;
+    for (i = 0; i < tab.length; i++) if (r <= tab[i][0]) return tab[i][which];
+    return tab[tab.length - 1][which];
+  }
+  function isMill(tip) { return tip === 'EM' || tip === 'BM' || tip === 'Glava'; }
+
+  /* privzeti ap / ae glede na orodje, operacijo in material */
+  function autoEngage(tip, op, mi, D, DATA) {
+    var a = DATA.apae[mi], ap = 0, ae = 0;
+    if (tip === 'EM') {
+      if (op === 1) { ae = D; ap = 0.5 * a[0] * D; }
+      else if (op === 3) { ae = 0.15 * D; ap = a[0] * D; }
+      else if (op === 4) { ae = Math.max(0.05 * D, 0.1); ap = a[0] * D; }
+      else { ae = a[1] * D; ap = a[0] * D; }
+    } else if (tip === 'BM') {
+      if (op === 1) { ae = D; ap = 0.25 * D; }
+      else if (op === 3) { ae = 0.1 * D; ap = 0.1 * D; }
+      else if (op === 4) { ae = 0.05 * D; ap = 0.05 * D; }
+      else { ae = 0.3 * D; ap = 0.2 * D; }
+    } else if (tip === 'Glava') {
+      ap = (op === 4) ? 0.3 : a[2]; ae = a[3] * D;
+    }
+    return { ap: Math.round(ap * 100) / 100, ae: Math.round(ae * 100) / 100 };
+  }
+
+  /* ---------- glavni izračun ----------
+     inp: tip, D, z, L, flute, depth, mat, hb, skorja, tmat, coat, hold, cool, cutter(-1=brez), op, ap, ae, csMode, thread, threadInt
+     mach: maxRpm, kw, nm, safety, confirmed */
+  function calc(inp, mach, DATA) {
+    var res = { ok: true, np: false, warn: [], notes: [], fac: {} };
+    function W(level, text) { res.warn.push({ level: level, text: text }); }
+    var tip = inp.tip, ti = DATA.tools.indexOf(tip), mi = inp.mat, D = inp.D;
+    if (ti < 0 || !(D > 0)) { res.ok = false; res.err = 'Manjka tip ali premer.'; return res; }
+    var z = inp.z > 0 ? inp.z : DATA.toolZ[ti];
+    var mill = isMill(tip);
+    var op = mill ? (inp.op || 0) : 0;
+
+    /* primernost rezkarja za material */
+    if (inp.cutter >= 0) {
+      if (DATA.cutterOk[inp.cutter][mi] !== 'da') {
+        res.ok = false; res.np = true; res.err = 'Rezkar (' + DATA.cutterNames[inp.cutter] + ') ni primeren za material ' + DATA.mats[mi] + '.';
+        return res;
+      }
+    }
+    var HB = inp.hb > 0 ? inp.hb : DATA.hbDefault[mi];
+    res.hb = HB; res.hrc = hbToHrc(HB);
+    if (inp.cutter >= 0 && res.hrc !== null && res.hrc > DATA.cutterHrcMax[inp.cutter])
+      W('err', 'Trdota ' + Math.round(res.hrc) + ' HRC presega mejo rezkarja (' + DATA.cutterHrcMax[inp.cutter] + ' HRC).');
+
+    /* ---- CS ---- */
+    var csR = DATA.cs[mi], cs0 = inp.csMode === 'min' ? csR[0] : (inp.csMode === 'max' ? csR[1] : (csR[0] + csR[1]) / 2);
+    cs0 = cs0 * DATA.toolCS[ti];
+    var tm = inp.tmat || 0, cf = inp.coat || 0, cl = inp.cool || 0;
+    var hbr = DATA.hbref[mi];
+    var fHcs = clamp(Math.pow(hbr / HB, DATA.hexpCS[mi]), 0.25, 1.3);
+    var fHfz = clamp(Math.pow(hbr / HB, DATA.hexpF[mi]), 0.4, 1.2);
+    var depthMode = (tip === 'Sveder' || tip === 'Povrtalo');
+    var ratio, Lmm;
+    if (depthMode) { Lmm = inp.depth > 0 ? inp.depth : 3 * D; ratio = Lmm / D; }
+    else { Lmm = inp.L > 0 ? inp.L : 3 * D; ratio = Lmm / D; }
+    var fSTcs = 1, fSTfz = 1;
+    if (tip !== 'Gravirnik' && tip !== 'Glava') {
+      fSTcs = bucket(depthMode ? DATA.depth : DATA.stick, ratio, 1);
+      fSTfz = bucket(depthMode ? DATA.depth : DATA.stick, ratio, 2);
+    }
+    var base = (op === 0);
+    var fOp = base ? 1 : DATA.opCS[op];
+    var fSk = inp.skorja ? DATA.skorjaCS : 1;
+    var fTm = DATA.tmatCS[tm];
+    var fCo = DATA.coat[cf][mi], fCl = DATA.cool[cl][mi];
+    var fAll = fHcs * fSTcs * fOp * fSk * fTm * fCo * fCl;
+    if (base) { fAll = fTm; }  /* "po tabeli": samo material orodja (karbid = 1) */
+    var vcT = Math.round(cs0 * fAll);
+    res.fac = { hardCS: fHcs, hardFZ: fHfz, stickCS: fSTcs, stickFZ: fSTfz, opCS: fOp, skorja: fSk, tmat: fTm, coat: fCo, cool: fCl };
+
+    /* ap / ae */
+    var eng = autoEngage(tip, op, mi, D, DATA);
+    var ap = inp.ap > 0 ? inp.ap : eng.ap, ae = inp.ae > 0 ? inp.ae : eng.ae;
+    res.ap = ap; res.ae = ae;
+    if (mill && ae > D * 1.0001) W('warn', 'ae je večji od premera orodja.');
+    if (mill && inp.flute > 0 && ap > inp.flute) W('warn', 'ap (' + ap + ' mm) je večji od dolžine rezalnega dela (' + inp.flute + ' mm).');
+
+    /* efektivni premer pri krogelnem */
+    var Deff = D;
+    if (tip === 'BM' && ap > 0 && ap < D / 2) { Deff = 2 * Math.sqrt(ap * (D - ap)); res.notes.push('BM: RPM po efektivnem premeru ' + (Math.round(Deff * 10) / 10) + ' mm.'); }
+    res.Deff = Deff;
+
+    /* ---- RPM ---- */
+    var n = stepRound(vcT * 1000 / (Math.PI * Deff), DATA.rounding.rpm);
+    var maxN = mach && mach.maxRpm > 0 ? mach.maxRpm : 0;
+    if (maxN && n > maxN) { n = maxN; W('warn', 'RPM omejen na maksimum stroja (' + maxN + '). Dejanski CS je nižji od ciljnega.'); res.capped = true; }
+    res.n = n;
+    res.vcTarget = vcT;
+    res.vc = n * Math.PI * Deff / 1000;
+
+    /* ---- FPT ---- */
+    var zi = clamp(Math.round(z), 1, 12) - 1;
+    var fzTab = r3(interp(DATA.fpt[tip], D, mi) * DATA.teeth[zi][ti]);
+    var fHold = DATA.holdFZ[inp.hold || 0], fTmfz = DATA.tmatFZ[tm];
+    var fzPre = base ? fzTab * fTmfz : fzTab * fHfz * fSTfz * DATA.opFZ[op] * fHold * fTmfz;
+    var thin = 1;
+    if ((tip === 'EM' || tip === 'Glava') && !base && DATA.opThin[op] && ae > 0 && ae < D / 2) {
+      thin = Math.min(2.5, D / (2 * Math.sqrt(ae * (D - ae))));
+    }
+    res.thin = thin;
+    var fz = fzPre * thin;
+    if (tip === 'Navojni sveder') {
+      if (inp.pitch > 0) fz = inp.pitch / z;
+      else W('err', 'Za navojni sveder vnesi korak navoja P (mm).');
+    }
+    res.fzTab = fzTab; res.fzBase = fzPre;
+    if (z !== (inp.z > 0 ? inp.z : DATA.toolZ[ti]) ) { /* nikoli */ }
+    if (!(inp.z > 0)) res.notes.push('Zobje niso vneseni: uporabljeno privzeto število (' + z + ').');
+
+    /* ---- moč, navor, upogib: zanka zniževanja pomika ---- */
+    var reasons = [];
+    var scale = 1, it, P = 0, Mt = 0, defl = 0, Fc = 0;
+    var kcF = Math.pow(HB / hbr, 0.6);
+    var machOn = mach && mach.kw > 0;
+    var Pmax = machOn ? mach.kw * (mach.safety || 0.8) : 0, Mmax = (mach && mach.nm > 0) ? mach.nm * (mach.safety || 0.8) : 0;
+    var Ey = DATA.tmatE[tm];
+    var dl = DATA.opDefl[op];
+    function metrics(fzx) {
+      var vf = fzx * z * n, hm, kc;
+      if (mill) {
+        hm = Math.max(fzx / (thin > 1 ? thin : 1), 0.01);
+        kc = DATA.kc[mi] * Math.pow(hm, -DATA.mc) * kcF;
+        P = ap * ae * vf * kc / 60e6 / DATA.eff;
+        Mt = n > 0 ? P * 9549 / n : 0;
+        var vcA = n * Math.PI * Deff / 1000;
+        Fc = vcA > 0 ? (P * DATA.eff) * 60000 / vcA : 0;
+        if (tip !== 'Glava') {
+          var I = Math.PI * Math.pow(DATA.coreRatio * D, 4) / 64;
+          defl = (DATA.radialRatio * Fc) * Math.pow(Lmm, 3) / (3 * Ey * I);
+        } else defl = 0;
+      } else if (tip === 'Sveder') {
+        var fn = fzx * z; hm = Math.max(0.43 * fn, 0.01);
+        kc = DATA.kc[mi] * Math.pow(hm, -DATA.mc) * kcF;
+        Mt = kc * fn * D * D / 8000 / 1.0;
+        P = Mt * n / 9549; defl = 0;
+      } else { P = 0; Mt = 0; defl = 0; }
+    }
+    scale = 1;
+    metrics(fz);
+    if (!base) {
+      for (it = 0; it < 60; it++) {
+        var over = false;
+        if (machOn && Pmax && P > Pmax) { over = 'moč'; }
+        else if (Mmax && Mt > Mmax) { over = 'navor'; }
+        else if (mill && tip !== 'Glava' && defl > dl) { over = 'upogib'; }
+        if (!over) break;
+        if (reasons.indexOf(over) < 0) reasons.push(over);
+        scale *= 0.97; if (scale < 0.25) break;
+        metrics(fz * scale);
+      }
+      if (scale < 1) {
+        fz = fz * scale;
+        W(scale <= 0.25 ? 'err' : 'warn', 'Pomik znižan na ' + Math.round(scale * 100) + '% zaradi: ' + reasons.join(', ') + '.' + (scale <= 0.25 ? ' Še vedno preobremenjeno – zmanjšaj ap/ae ali skrajšaj previs.' : ''));
+      }
+    } else {
+      /* osnovno: samo prikaz in opozorila */
+      if (machOn && Pmax && P > Pmax) W('warn', 'Moč ' + (Math.round(P * 10) / 10) + ' kW presega mejo stroja (' + (Math.round(Pmax * 10) / 10) + ' kW).');
+    }
+    metrics(fz);
+    res.P = P; res.M = Mt; res.defl = defl * 1000; res.Fc = Fc;
+    res.scale = scale;
+    res.fz = fz;
+    var vf = tip === 'Navojni sveder' ? Math.round(fz * z * n * 10) / 10 : stepRound(fz * z * n, DATA.rounding.feed);
+    res.vf = vf;
+    res.fzAct = n > 0 ? vf / (z * n) : 0;
+    res.z = z;
+    res.mrr = (mill && ap > 0 && ae > 0) ? ap * ae * vf / 1000 : null;
+
+    /* ---- posebna orodja ---- */
+    if (tip === 'Navojni sveder' && inp.pitch > 0) {
+      res.notes.push('Navojni sveder: Feed = RPM × korak P (' + String(Math.round(inp.pitch * 1000) / 1000).replace('.', ',') + ' mm/vrt). Uporabi sinhrono vrezovanje navoja (npr. G84); preveri korak in krmiljenje.');
+    }
+    if (tip === 'Navojno frezalo') {
+      if (inp.thread > 0) {
+        if (inp.threadInt !== false) {
+          if (inp.thread > D) res.vfCenter = Math.round(vf * (inp.thread - D) / inp.thread);
+          else W('err', 'Ø navoja mora biti večji od Ø orodja (notranji navoj).');
+        } else res.vfCenter = Math.round(vf * (inp.thread + D) / inp.thread);
+      } else W('info', 'Vpiši Ø navoja za pomik po sredini orodja.');
+    }
+    if (tip === 'Sveder' || tip === 'Povrtalo') {
+      var fn2 = fz * z;
+      res.fn = fn2;
+      var rr = fn2 / D;
+      if (tip === 'Sveder' && (rr < 0.004 || rr > 0.04)) W('warn', 'Pomik na obrat (' + (Math.round(fn2 * 1000) / 1000) + ' mm/vrt) je izven običajnega razpona za ta Ø.');
+      if (tip === 'Sveder') {
+        if (ratio > 3) {
+          res.peck = ratio <= 5 ? Math.round(D * 1.5 * 10) / 10 : (ratio <= 8 ? Math.round(D * 10) / 10 : Math.round(D * 0.5 * 10) / 10);
+          res.notes.push('Globina ' + (Math.round(ratio * 10) / 10) + '×D: uporabi G83, predlagan Q ≈ ' + res.peck + ' mm.');
+        }
+        if (ratio > 5 && cl !== 1) W('warn', 'Vrtina globlja od 5×D: priporočeno je notranje hlajenje.');
+      }
+      if (tip === 'Povrtalo') res.notes.push('Povrtavanje: pustiti dodatek 0,1–0,3 mm na Ø, vrtina mora biti ravna in brez prirastkov.');
+    }
+    /* ---- splošna opozorila ---- */
+    if (mill || tip === 'Navojno frezalo' || tip === 'Kirner' || tip === 'Navojni sveder') {
+      if (ratio > 8) W('err', 'Previs ' + (Math.round(ratio * 10) / 10) + '×D je preveč – skrajšaj orodje.');
+      else if (ratio > 5) W('warn', 'Previs ' + (Math.round(ratio * 10) / 10) + '×D: tveganje vibracij.');
+    }
+    var cb = DATA.coatBad[cf][mi];
+    if (cb) W('warn', 'Prevleka ' + DATA.coatNames[cf] + ' ni priporočljiva za ' + DATA.mats[mi] + '.');
+    if (inp.cutter >= 0 && inp.cutter === 0 && mi > 1) { /* že zavrnjeno zgoraj */ }
+    if (mi === 0 && HB > 150) W('warn', 'Trdota aluminija (' + Math.round(HB) + ' HB) je nenavadno visoka.');
+    if (mi >= 2 && res.hrc !== null && res.hrc > 50 && tm !== 0) W('warn', 'Trda jekla (>' + 50 + ' HRC) z orodjem iz ' + DATA.tmatNames[tm] + ' – ni priporočljivo.');
+    if (tm !== 0 && mi >= 2 && cs0 > 0 && vcT < 15) W('info', 'Zelo nizek CS (' + vcT + ' m/min) – preveri katalog orodja.');
+    if (mach && !mach.confirmed) W('warn', 'Podatki stroja niso potrjeni (Nastavitve) – preverjanje moči/RPM je okvirno.');
+    if (!inp.L && !depthMode && mill) res.notes.push('Previs ni vnesen: privzeto 3×D.');
+    return res;
+  }
+
+  return { defaults: defaults, defaultMachine: defaultMachine, calc: calc, autoEngage: autoEngage, hrcToHb: hrcToHb, hbToHrc: hbToHrc, interp: interp, stepRound: stepRound, clone: clone, isMill: isMill, clamp: clamp };
+})();
+
+
+</script>
+<script>
+/* UI (ES5) */
+(function () {
+  'use strict';
+  var DATA, MACH, TOOLS = [], LAST = {};
+  var LS_OK = false;
+  function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { window.localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+  function $(id) { return document.getElementById(id); }
+  function num(v) { if (v === null || v === undefined) return 0; var s = String(v).replace(',', '.'); var x = parseFloat(s); return isNaN(x) ? 0 : x; }
+  function mk(tag, attrs, text) {
+    var e = document.createElement(tag), k;
+    if (attrs) for (k in attrs) { if (k === 'cls') e.className = attrs[k]; else e.setAttribute(k, attrs[k]); }
+    if (text !== undefined && text !== null) e.appendChild(document.createTextNode(text));
+    return e;
+  }
+  function clear(e) { while (e.firstChild) e.removeChild(e.firstChild); }
+  function fill(sel, arr, extra, byName) {
+    var cur = sel.value, i; clear(sel);
+    if (extra) { var o0 = mk('option', { value: '-1' }, extra); sel.appendChild(o0); }
+    for (i = 0; i < arr.length; i++) sel.appendChild(mk('option', { value: byName ? arr[i] : String(i) }, arr[i]));
+    if (cur !== '' && !byName && sel.querySelector('option[value="' + cur + '"]')) sel.value = cur;
+  }
+  function f1(x, d) { if (x === null || x === undefined || isNaN(x)) return '–'; var p = Math.pow(10, d === undefined ? 0 : d); return String(Math.round(x * p) / p).replace('.', ','); }
+
+  /* ---------- shranjevanje ---------- */
+  function loadAll() {
+    DATA = FS.defaults(); MACH = FS.defaultMachine();
+    var d = lsGet('fs_data'), m = lsGet('fs_machine'), t = lsGet('fs_tools'), l = lsGet('fs_last');
+    try {
+      if (d) {
+        var x = JSON.parse(d);
+        if (x && x.version === 1) {
+          /* Migracija stare baze: ohrani obstoječe tabele in doda nova tipa orodij. */
+          var freshV2 = FS.defaults(), extra = ['Kirner', 'Navojni sveder'], ei;
+          for (ei = 0; ei < extra.length; ei++) {
+            var name = extra[ei], idx = freshV2.tools.indexOf(name);
+            if (x.tools.indexOf(name) < 0) {
+              x.tools.push(name); x.toolCS.push(freshV2.toolCS[idx]); x.toolZ.push(freshV2.toolZ[idx]);
+              x.fpt[name] = freshV2.fpt[name];
+              for (var tr = 0; tr < x.teeth.length; tr++) x.teeth[tr].push(freshV2.teeth[tr][idx]);
+              for (var cr = 0; cr < x.cutterOk.length; cr++) x.cutterOk[cr].push(freshV2.cutterOk[cr][0]);
+            }
+          }
+          x.version = 2;
+        }
+        if (x && x.version === 2) {
+          /* Razširi materialne stolpce. Vse stare ročno popravljene številke ostanejo. */
+          var fresh = FS.defaults(), oldMats = x.mats || [], newMats = fresh.mats;
+          function oldIndex(name) { return oldMats.indexOf(name); }
+          function remapVector(prop) {
+            var old = x[prop] || [], out = fresh[prop].slice(0), ni, oi;
+            for (ni = 0; ni < newMats.length; ni++) { oi = oldIndex(newMats[ni]); if (oi >= 0 && oi < old.length) out[ni] = old[oi]; }
+            x[prop] = out;
+          }
+          function remapMaterialRecords(prop) {
+            var old = x[prop] || [], out = JSON.parse(JSON.stringify(fresh[prop])), ni, oi;
+            for (ni = 0; ni < newMats.length; ni++) {
+              oi = oldIndex(newMats[ni]);
+              if (oi >= 0 && old[oi] !== undefined) out[ni] = JSON.parse(JSON.stringify(old[oi]));
+            }
+            x[prop] = out;
+          }
+          function remapMaterialColumns(prop) {
+            var old = x[prop] || [], out = JSON.parse(JSON.stringify(fresh[prop])), r, ni, oi;
+            for (r = 0; r < out.length; r++) for (ni = 0; ni < newMats.length; ni++) {
+              oi = oldIndex(newMats[ni]);
+              if (oi >= 0 && old[r] && oi < old[r].length) out[r][ni] = old[r][oi];
+            }
+            x[prop] = out;
+          }
+          ['hbDefault', 'hbref', 'hexpCS', 'hexpF', 'kc'].forEach(remapVector);
+          ['cs', 'apae'].forEach(remapMaterialRecords);
+          ['coat', 'coatBad', 'cool', 'cutterOk'].forEach(remapMaterialColumns);
+          for (var ft in fresh.fpt) {
+            var oldRows = x.fpt && x.fpt[ft], freshRows = fresh.fpt[ft], rr, mm;
+            if (!oldRows) continue;
+            for (rr = 0; rr < freshRows.length; rr++) {
+              var oldRow = null;
+              for (var or = 0; or < oldRows.length; or++) if (oldRows[or][0] === freshRows[rr][0]) { oldRow = oldRows[or]; break; }
+              if (!oldRow) continue;
+              for (mm = 0; mm < newMats.length; mm++) {
+                var oi2 = oldIndex(newMats[mm]);
+                if (oi2 >= 0 && oldRow[oi2 + 1] !== undefined) freshRows[rr][mm + 1] = oldRow[oi2 + 1];
+              }
+            }
+          }
+          x.fpt = fresh.fpt;
+          x.mats = newMats;
+          x.version = 3;
+          DATA = x; saveData();
+        } else if (x && x.version === 3) DATA = x;
+      }
+    } catch (e) { }
+    try { if (m) MACH = JSON.parse(m); } catch (e) { }
+    try { if (t) TOOLS = JSON.parse(t); } catch (e) { }
+    try { if (l) LAST = JSON.parse(l); } catch (e) { }
+  }
+  function saveData() { lsSet('fs_data', JSON.stringify(DATA)); }
+  function saveMach() { lsSet('fs_machine', JSON.stringify(MACH)); }
+  function saveTools() { lsSet('fs_tools', JSON.stringify(TOOLS)); }
+
+  /* ---------- zavihki ---------- */
+  function showTab(name) {
+    var tabs = ['calc', 'tools', 'mach', 'data', 'help'], i;
+    for (i = 0; i < tabs.length; i++) {
+      $('tab_' + tabs[i]).style.display = tabs[i] === name ? 'block' : 'none';
+      $('btn_' + tabs[i]).className = 'tabbtn' + (tabs[i] === name ? ' on' : '');
+    }
+    if (name === 'tools') renderTools();
+    if (name === 'data') renderData();
+    if (name === 'mach') renderMach();
+  }
+
+  /* ---------- kalkulator: obrazec ---------- */
+  function readInputs() {
+    var tip = $('f_tip').value;
+    var hv = num($('f_hard').value), hb = 0;
+    if (hv > 0) hb = $('f_hunit').value === 'HRC' ? FS.hrcToHb(hv) : hv;
+    return {
+      tip: tip, D: num($('f_d').value), z: num($('f_z').value), L: num($('f_L').value), depth: num($('f_L').value),
+      flute: num($('f_flute').value), mat: parseInt($('f_mat').value, 10), hb: hb, skorja: $('f_skorja').checked,
+      tmat: parseInt($('f_tmat').value, 10), coat: parseInt($('f_coat').value, 10), hold: parseInt($('f_hold').value, 10),
+      cool: parseInt($('f_cool').value, 10), cutter: parseInt($('f_cutter').value, 10), op: parseInt($('f_op').value, 10),
+      ap: num($('f_ap').value), ae: num($('f_ae').value), csMode: $('f_csm').value,
+      thread: num($('f_thread').value), pitch: num($('f_pitch').value), threadInt: $('f_tint').value === '1'
+    };
+  }
+  function saveLast() {
+    var ids = ['f_id', 'f_tip', 'f_d', 'f_z', 'f_L', 'f_flute', 'f_mat', 'f_hard', 'f_hunit', 'f_skorja', 'f_tmat', 'f_coat', 'f_hold', 'f_cool', 'f_cutter', 'f_op', 'f_ap', 'f_ae', 'f_csm', 'f_thread', 'f_tint', 'f_pitch'], i, o = {};
+    for (i = 0; i < ids.length; i++) { var e = $(ids[i]); o[ids[i]] = e.type === 'checkbox' ? e.checked : e.value; }
+    lsSet('fs_last', JSON.stringify(o));
+  }
+  function restoreLast() {
+    var k, e;
+    for (k in LAST) { e = $(k); if (!e) continue; if (e.type === 'checkbox') e.checked = !!LAST[k]; else e.value = LAST[k]; }
+  }
+  function setHardDefault() {
+    var mi = parseInt($('f_mat').value, 10), hb = DATA.hbDefault[mi];
+    if (hb >= 280) { $('f_hunit').value = 'HRC'; $('f_hard').value = String(Math.round(FS.hbToHrc(hb))); }
+    else { $('f_hunit').value = 'HB'; $('f_hard').value = String(hb); }
+  }
+  function onUnitChange() {
+    var v = num($('f_hard').value); if (!(v > 0)) return;
+    var unit = $('f_hunit').value;
+    if (unit === 'HRC') { var h = FS.hbToHrc(v); $('f_hard').value = h === null ? '' : String(Math.round(h)); }
+    else { $('f_hard').value = String(Math.round(FS.hrcToHb(v))); }
+  }
+  function updateLabels() {
+    var tip = $('f_tip').value, mill = FS.isMill(tip);
+    var depthMode = (tip === 'Sveder' || tip === 'Povrtalo');
+    $('lbl_L').firstChild.nodeValue = depthMode ? 'Globina vrtine (mm)' : 'Previs orodja L (mm)';
+    $('row_flute').style.display = mill ? 'block' : 'none';
+    $('row_thread').style.display = tip === 'Navojno frezalo' ? 'block' : 'none';
+    $('row_pitch').style.display = tip === 'Navojni sveder' ? 'block' : 'none';
+    $('card_op_eng').style.display = mill ? 'block' : 'none';
+    $('lbl_op').style.display = mill ? 'block' : 'none';
+  }
+  function updatePlaceholders() {
+    var inp = readInputs();
+    if (!(inp.D > 0)) { $('f_ap').placeholder = 'samodejno'; $('f_ae').placeholder = 'samodejno'; return; }
+    if (FS.isMill(inp.tip)) {
+      var e = FS.autoEngage(inp.tip, inp.op, inp.mat, inp.D, DATA);
+      $('f_ap').placeholder = 'samodejno: ' + f1(e.ap, 2);
+      $('f_ae').placeholder = 'samodejno: ' + f1(e.ae, 2);
+    }
+    var tipI = DATA.tools.indexOf(inp.tip);
+    $('f_z').placeholder = tipI >= 0 ? 'privzeto: ' + DATA.toolZ[tipI] : '';
+  }
+
+  /* ---------- izračun in prikaz ---------- */
+  function recalc() {
+    updateLabels(); updatePlaceholders();
+    var inp = readInputs(), res = FS.calc(inp, MACH, DATA);
+    var out = $('res'); clear(out);
+    $('machchip').className = 'chip ' + (MACH.confirmed ? 'ok' : 'bad');
+    $('machchip').firstChild.nodeValue = MACH.confirmed ? 'Stroj: ' + MACH.name : 'Stroj: podatki niso potrjeni';
+    if (!res.ok) {
+      var b = mk('div', { cls: 'banner ' + (res.np ? 'bad' : 'wait') }, res.np ? 'NI PRIMEREN' : 'Vnesi tip in premer');
+      out.appendChild(b);
+      if (res.err && res.np) out.appendChild(mk('p', { cls: 'sub' }, res.err));
+      renderCompare(inp); saveLast(); return;
+    }
+    var worst = 'ok', i;
+    for (i = 0; i < res.warn.length; i++) { if (res.warn[i].level === 'err') worst = 'err'; else if (res.warn[i].level === 'warn' && worst !== 'err') worst = 'warn'; }
+    var ban = mk('div', { cls: 'banner ' + (worst === 'err' ? 'bad' : (worst === 'warn' ? 'warnb' : 'good')) },
+      worst === 'err' ? 'POZOR – preveri opozorila' : (worst === 'warn' ? 'Izračunano z opozorili' : 'Izračunano'));
+    out.appendChild(ban);
+    var big = mk('div', { cls: 'big' });
+    function bigCell(lbl, val, unit) {
+      var d = mk('div', { cls: 'bigc' });
+      d.appendChild(mk('div', { cls: 'bl' }, lbl)); d.appendChild(mk('div', { cls: 'bv' }, val)); d.appendChild(mk('div', { cls: 'bu' }, unit));
+      big.appendChild(d);
+    }
+    bigCell('Spindle speed', f1(res.n), 'vrt/min');
+    bigCell('Feed rate', f1(res.vf), 'mm/min');
+    bigCell('FPT', f1(res.fzAct, 3), 'mm/zob');
+    bigCell('CS', f1(res.vc), 'm/min');
+    out.appendChild(big);
+    var feedProg = res.vfCenter ? res.vfCenter : res.vf;
+    out.appendChild(mk('div', { cls: 'gcode' }, 'S' + res.n + ' M3   F' + feedProg + (res.peck ? '   (G83 Q' + String(res.peck).replace('.', ',') + ')' : '')));
+    if (res.vfCenter) out.appendChild(mk('p', { cls: 'sub' }, 'Navojno frezalo: Feed po sredini orodja ' + res.vfCenter + ' mm/min (na robu orodja ' + res.vf + ').'));
+    /* tabela dodatnih vrednosti */
+    var tb = mk('table', { cls: 'kv' });
+    function row(k, v) { var tr = mk('tr'); tr.appendChild(mk('th', null, k)); tr.appendChild(mk('td', null, v)); tb.appendChild(tr); }
+    row('Trdota', f1(res.hb) + ' HB' + (res.hrc !== null ? ' (≈ ' + f1(res.hrc) + ' HRC)' : ''));
+    row('Zobje', String(res.z));
+    if (res.fn) row('Pomik na obrat', f1(res.fn, 3) + ' mm/vrt');
+    if (FS.isMill(inp.tip)) { row('ap / ae', f1(res.ap, 2) + ' / ' + f1(res.ae, 2) + ' mm'); if (res.mrr !== null) row('MRR', f1(res.mrr, 1) + ' cm³/min'); }
+    if (res.Deff && res.Deff !== inp.D) row('Efektivni Ø', f1(res.Deff, 2) + ' mm');
+    if (res.P > 0) row('Moč reza (vreteno)', f1(res.P, 2) + ' kW' + (MACH.kw ? ' od ' + f1(MACH.kw * (MACH.safety || 0.8), 1) + ' dovoljenih' : ''));
+    if (res.M > 0) row('Navor', f1(res.M, 1) + ' Nm' + (MACH.nm ? ' od ' + f1(MACH.nm * (MACH.safety || 0.8), 0) + ' dovoljenih' : ''));
+    if (res.defl > 0) row('Upogib orodja (ocena)', f1(res.defl, 1) + ' µm');
+    if (res.thin > 1.001) row('Korekcija stanjšanja ostružka', '× ' + f1(res.thin, 2));
+    out.appendChild(tb);
+    /* opozorila */
+    if (res.warn.length || res.notes.length) {
+      var ul = mk('ul', { cls: 'warns' });
+      for (i = 0; i < res.warn.length; i++) ul.appendChild(mk('li', { cls: res.warn[i].level }, res.warn[i].text));
+      for (i = 0; i < res.notes.length; i++) ul.appendChild(mk('li', { cls: 'info' }, res.notes[i]));
+      out.appendChild(ul);
+    }
+    out.appendChild(mk('p', { cls: 'test' }, 'Prvi rez: začni pri 80 % pomika (Feed override), poslušaj, preveri ostružke in segrevanje, nato dvigni. Izračun je izhodišče, ne zagotovilo.'));
+    renderCompare(inp); saveLast();
+  }
+  function renderCompare(inp) {
+    var host = $('cmp'); clear(host);
+    if (!(inp.D > 0)) return;
+    var t = mk('table', { cls: 'cmp' }), tr = mk('tr'), i, hdr = ['Material', 'RPM', 'Feed', 'FPT', 'CS'];
+    for (i = 0; i < hdr.length; i++) tr.appendChild(mk('th', null, hdr[i]));
+    t.appendChild(tr);
+    for (i = 0; i < DATA.mats.length; i++) {
+      var o = {}, k; for (k in inp) o[k] = inp[k];
+      o.mat = i; o.hb = 0; o.ap = 0; o.ae = 0;
+      var r = FS.calc(o, MACH, DATA);
+      tr = mk('tr', { cls: i === inp.mat ? 'sel' : '' });
+      tr.appendChild(mk('td', { cls: 'l' }, DATA.mats[i]));
+      if (!r.ok) { var td = mk('td', { cls: 'np', colspan: '4' }, r.np ? 'ni primeren' : '–'); tr.appendChild(td); }
+      else {
+        tr.appendChild(mk('td', null, f1(r.n))); tr.appendChild(mk('td', null, f1(r.vf)));
+        tr.appendChild(mk('td', null, f1(r.fzAct, 3))); tr.appendChild(mk('td', null, f1(r.vc)));
+      }
+      t.appendChild(tr);
+    }
+    host.appendChild(t);
+  }
+
+  /* ---------- hitri preračun ---------- */
+  function quick() {
+    var d = num($('q_d').value), z = num($('q_z').value), cs = num($('q_cs').value), n = num($('q_n').value), fz = num($('q_fz').value), f = num($('q_f').value);
+    var out = [];
+    var n2 = n, cs2 = cs;
+    if (d > 0) {
+      if (!(n > 0) && cs > 0) { n2 = cs * 1000 / (Math.PI * d); out.push('RPM = ' + Math.round(n2)); }
+      if (!(cs > 0) && n > 0) { cs2 = n * Math.PI * d / 1000; out.push('CS = ' + f1(cs2, 1) + ' m/min'); }
+    }
+    if (z > 0 && n2 > 0) {
+      if (!(f > 0) && fz > 0) out.push('Feed = ' + Math.round(fz * z * n2) + ' mm/min');
+      if (!(fz > 0) && f > 0) out.push('FPT = ' + f1(f / (z * n2), 4) + ' mm/zob');
+    }
+    $('q_out').firstChild.nodeValue = out.length ? out.join('   ·   ') : 'Vpiši Ø, zobe in vsaj en par podatkov (CS ali RPM; FPT ali Feed).';
+  }
+
+  /* ---------- baza orodij ---------- */
+  function toolFromForm() {
+    return {
+      id: $('f_id').value, tip: $('f_tip').value, D: num($('f_d').value), z: num($('f_z').value), L: num($('f_L').value), flute: num($('f_flute').value),
+      cutter: parseInt($('f_cutter').value, 10), tmat: parseInt($('f_tmat').value, 10), coat: parseInt($('f_coat').value, 10), hold: parseInt($('f_hold').value, 10)
+    };
+  }
+  function toolToForm(t) {
+    $('f_id').value = t.id; $('f_tip').value = t.tip; $('f_d').value = t.D || ''; $('f_z').value = t.z || ''; $('f_L').value = t.L || ''; $('f_flute').value = t.flute || '';
+    $('f_cutter').value = String(t.cutter === undefined ? -1 : t.cutter); $('f_tmat').value = String(t.tmat || 0); $('f_coat').value = String(t.coat || 0); $('f_hold').value = String(t.hold || 0);
+  }
+  function findTool(id) { var i; for (i = 0; i < TOOLS.length; i++) if (String(TOOLS[i].id) === String(id)) return i; return -1; }
+  function saveTool() {
+    var t = toolFromForm();
+    if (!t.id) { alert('Vpiši ID orodja.'); return; }
+    if (!(t.D > 0)) { alert('Vpiši premer.'); return; }
+    var i = findTool(t.id);
+    if (i >= 0) TOOLS[i] = t; else TOOLS.push(t);
+    saveTools(); $('savemsg').firstChild.nodeValue = 'Shranjeno (' + TOOLS.length + ' orodij).';
+  }
+  function renderTools() {
+    var host = $('toolrows'); clear(host);
+    var q = $('tfilter').value.toLowerCase(), i;
+    var sorted = TOOLS.slice(0).sort(function (a, b) { return String(a.id).localeCompare(String(b.id), undefined, { numeric: true }); });
+    for (i = 0; i < sorted.length; i++) {
+      var t = sorted[i], line = (t.id + ' ' + t.tip + ' ' + t.D).toLowerCase();
+      if (q && line.indexOf(q) < 0) continue;
+      var tr = mk('tr');
+      tr.appendChild(mk('td', null, String(t.id))); tr.appendChild(mk('td', null, t.tip)); tr.appendChild(mk('td', null, f1(t.D, 2)));
+      tr.appendChild(mk('td', null, t.z ? String(t.z) : '–')); tr.appendChild(mk('td', null, t.L ? f1(t.L, 1) : '–'));
+      tr.appendChild(mk('td', null, t.cutter >= 0 ? DATA.cutterNames[t.cutter] : '–')); tr.appendChild(mk('td', null, DATA.tmatNames[t.tmat || 0]));
+      tr.appendChild(mk('td', null, DATA.coatNames[t.coat || 0]));
+      var td = mk('td'), b1 = mk('button', { cls: 'sm', type: 'button' }, 'Naloži'), b2 = mk('button', { cls: 'sm', type: 'button' }, 'Briši');
+      (function (tt) {
+        b1.onclick = function () { toolToForm(tt); showTab('calc'); recalc(); };
+        b2.onclick = function () { if (confirm('Izbrišem orodje ' + tt.id + '?')) { var j = findTool(tt.id); if (j >= 0) { TOOLS.splice(j, 1); saveTools(); renderTools(); } } };
+      })(t);
+      td.appendChild(b1); td.appendChild(b2); tr.appendChild(td); host.appendChild(tr);
+    }
+    $('toolcount').firstChild.nodeValue = TOOLS.length + ' orodij v bazi';
+  }
+  function toCSV() {
+    var lines = ['ID;TIP;Premer;Zobje;Previs;RezalniDel;RezkarZa;MaterialOrodja;Prevleka;Vpetje'], i;
+    for (i = 0; i < TOOLS.length; i++) {
+      var t = TOOLS[i];
+      lines.push([t.id, t.tip, t.D, t.z || '', t.L || '', t.flute || '', t.cutter >= 0 ? DATA.cutterNames[t.cutter] : '', DATA.tmatNames[t.tmat || 0], DATA.coatNames[t.coat || 0], DATA.holdNames[t.hold || 0]].join(';'));
+    }
+    return lines.join('\r\n');
+  }
+  function fromCSV(text) {
+    var lines = text.split(/\r?\n/), i, added = 0;
+    for (i = 0; i < lines.length; i++) {
+      var p = lines[i].split(';');
+      if (p.length < 3 || p[0].toLowerCase() === 'id') continue;
+      var t = { id: p[0], tip: p[1], D: num(p[2]), z: num(p[3]), L: num(p[4]), flute: num(p[5]) };
+      t.cutter = DATA.cutterNames.indexOf(p[6]); t.tmat = Math.max(0, DATA.tmatNames.indexOf(p[7])); t.coat = Math.max(0, DATA.coatNames.indexOf(p[8])); t.hold = Math.max(0, DATA.holdNames.indexOf(p[9]));
+      if (DATA.tools.indexOf(t.tip) < 0 || !(t.D > 0) || !t.id) continue;
+      var j = findTool(t.id); if (j >= 0) TOOLS[j] = t; else TOOLS.push(t); added++;
+    }
+    saveTools(); renderTools(); return added;
+  }
+  function download(name, text) {
+    try {
+      var blob = new Blob(['﻿' + text], { type: 'text/csv;charset=utf-8' });
+      if (window.navigator.msSaveOrOpenBlob) { window.navigator.msSaveOrOpenBlob(blob, name); return; }
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    } catch (e) { alert('Prenos ni mogoč – kopiraj besedilo iz polja.'); }
+  }
+
+  /* ---------- stroj ---------- */
+  function renderMach() {
+    $('m_name').value = MACH.name; $('m_rpm').value = MACH.maxRpm; $('m_kw').value = MACH.kw; $('m_nm').value = MACH.nm;
+    $('m_safe').value = MACH.safety; $('m_conf').checked = !!MACH.confirmed;
+    $('r_rpm').value = DATA.rounding.rpm; $('r_feed').value = DATA.rounding.feed;
+  }
+  function readMach() {
+    MACH.name = $('m_name').value || 'Stroj'; MACH.maxRpm = num($('m_rpm').value); MACH.kw = num($('m_kw').value); MACH.nm = num($('m_nm').value);
+    MACH.safety = num($('m_safe').value) || 0.8; MACH.confirmed = $('m_conf').checked;
+    DATA.rounding.rpm = num($('r_rpm').value) || 100; DATA.rounding.feed = num($('r_feed').value) || 10;
+    saveMach(); saveData(); recalc();
+  }
+
+  /* ---------- podatki (urejanje tabel) ---------- */
+  function numInput(val, onch, w) {
+    var i = mk('input', { type: 'text', cls: 'cell', value: String(val) });
+    if (w) i.style.width = w;
+    i.onchange = function () { onch(num(i.value)); saveData(); recalc(); };
+    return i;
+  }
+  function grid(host, title, note, cols, rows, getter, setter, rowW) {
+    var sec = mk('div', { cls: 'sec' });
+    sec.style.maxWidth = '100%'; sec.style.overflowX = 'auto';
+    sec.appendChild(mk('h3', null, title));
+    if (note) sec.appendChild(mk('p', { cls: 'sub' }, note));
+    var t = mk('table', { cls: 'grid' }), tr = mk('tr'), r, c;
+    tr.appendChild(mk('th'));
+    for (c = 0; c < cols.length; c++) tr.appendChild(mk('th', null, cols[c]));
+    t.appendChild(tr);
+    for (r = 0; r < rows.length; r++) {
+      tr = mk('tr'); tr.appendChild(mk('th', { cls: 'rl' }, rows[r]));
+      for (c = 0; c < cols.length; c++) {
+        (function (rr, cc) {
+          var td = mk('td'), v = getter(rr, cc);
+          if (v === 'da' || v === 'ne') {
+            var s = mk('select', { cls: 'cell' }); s.appendChild(mk('option', { value: 'da' }, 'da')); s.appendChild(mk('option', { value: 'ne' }, 'ne')); s.value = v;
+            s.onchange = function () { setter(rr, cc, s.value); saveData(); recalc(); };
+            td.appendChild(s);
+          } else td.appendChild(numInput(v, function (x) { setter(rr, cc, x); }));
+          tr.appendChild(td);
+        })(r, c);
+      }
+      t.appendChild(tr);
+    }
+    sec.appendChild(t); host.appendChild(sec);
+  }
+  function renderData() {
+    var h = $('datahost'); clear(h);
+    var M = DATA.mats, T = DATA.tools, i, k;
+    grid(h, 'CS – rezalna hitrost (m/min), karbidno frezalo EM', 'Tvoja tabela CS. Vrednost za druga orodja = ta × faktor tipa orodja.', ['min', 'max'], M, function (r, c) { return DATA.cs[r][c]; }, function (r, c, v) { DATA.cs[r][c] = v; });
+    grid(h, 'Material obdelovanca', 'Referenčna trdota (HB) in izhodiščna trdota ob izbiri materiala; eksponent vpliva trdote na CS in FPT; kc1.1 = specifična rezalna sila (N/mm²) pri ostružku 1 mm.',
+      ['Izhodiščna HB', 'Referenčna HB', 'Eksponent CS', 'Eksponent FPT', 'kc1.1'], M,
+      function (r, c) { return [DATA.hbDefault, DATA.hbref, DATA.hexpCS, DATA.hexpF, DATA.kc][c][r]; },
+      function (r, c, v) { [DATA.hbDefault, DATA.hbref, DATA.hexpCS, DATA.hexpF, DATA.kc][c][r] = v; });
+    grid(h, 'Tip orodja', 'CS faktor (sveder 0,4 in glava 0,667 sta izpeljana iz tvojih vrednosti) in privzeto število zob.', ['CS faktor', 'Privzeti zobje'], T,
+      function (r, c) { return c === 0 ? DATA.toolCS[r] : DATA.toolZ[r]; }, function (r, c, v) { if (c === 0) DATA.toolCS[r] = v; else DATA.toolZ[r] = v; });
+    var zr = []; for (i = 1; i <= 12; i++) zr.push(String(i));
+    grid(h, 'Faktor FPT po številu zob', '1,0 = referenca (EM 3–4 zobje, sveder 2, glava 4, BM 2, navojno 3, povrtalo 6).', T, zr, function (r, c) { return DATA.teeth[r][c]; }, function (r, c, v) { DATA.teeth[r][c] = v; });
+    for (k = 0; k < T.length; k++) {
+      (function (tip) {
+        var rows = DATA.fpt[tip], lab = [], j; for (j = 0; j < rows.length; j++) lab.push('Ø ' + rows[j][0]);
+        grid(h, 'FPT (mm/zob) – ' + tip, 'Pomik na zob po premeru in materialu; vmesni premeri se interpolirajo.', M, lab, function (r, c) { return rows[r][c + 1]; }, function (r, c, v) { rows[r][c + 1] = v; });
+      })(T[k]);
+    }
+    grid(h, 'Rezkar – za kateri material je narejen', 'da = primeren; ne = prikaže "ni primeren".', M, DATA.cutterNames, function (r, c) { return DATA.cutterOk[c][r]; }, function (r, c, v) { DATA.cutterOk[c][r] = v; });
+    grid(h, 'Rezkar – največja trdota (HRC)', null, ['HRC'], DATA.cutterNames, function (r) { return DATA.cutterHrcMax[r]; }, function (r, c, v) { DATA.cutterHrcMax[r] = v; });
+    grid(h, 'Material orodja', 'Faktorji glede na karbid; E = modul elastičnosti (N/mm²) za oceno upogiba.', ['CS faktor', 'FPT faktor', 'E'], DATA.tmatNames,
+      function (r, c) { return [DATA.tmatCS, DATA.tmatFZ, DATA.tmatE][c][r]; }, function (r, c, v) { [DATA.tmatCS, DATA.tmatFZ, DATA.tmatE][c][r] = v; });
+    grid(h, 'Prevleka – CS faktor po materialu', null, M, DATA.coatNames, function (r, c) { return DATA.coat[r][c]; }, function (r, c, v) { DATA.coat[r][c] = v; });
+    grid(h, 'Hlajenje – CS faktor po materialu', null, M, DATA.coolNames, function (r, c) { return DATA.cool[r][c]; }, function (r, c, v) { DATA.cool[r][c] = v; });
+    grid(h, 'Vpetje – faktor FPT', 'Togost in biti (runout) vpetja.', ['FPT faktor'], DATA.holdNames, function (r) { return DATA.holdFZ[r]; }, function (r, c, v) { DATA.holdFZ[r] = v; });
+    grid(h, 'Operacija', 'CS in FPT faktor, stanjšanje ostružka (1 = da), dovoljen upogib (mm).', ['CS faktor', 'FPT faktor', 'Stanjšanje', 'Upogib mm'], DATA.opNames,
+      function (r, c) { return [DATA.opCS, DATA.opFZ, DATA.opThin, DATA.opDefl][c][r]; }, function (r, c, v) { [DATA.opCS, DATA.opFZ, DATA.opThin, DATA.opDefl][c][r] = v; });
+    var sl = [], dl = []; for (i = 0; i < DATA.stick.length; i++) sl.push('L/D do ' + DATA.stick[i][0]); for (i = 0; i < DATA.depth.length; i++) dl.push('globina/D do ' + DATA.depth[i][0]);
+    grid(h, 'Previs orodja (L/D) – faktorji', null, ['meja L/D', 'CS', 'FPT'], sl, function (r, c) { return DATA.stick[r][c]; }, function (r, c, v) { DATA.stick[r][c] = v; });
+    grid(h, 'Globina vrtanja (×D) – faktorji', null, ['meja', 'CS', 'FPT'], dl, function (r, c) { return DATA.depth[r][c]; }, function (r, c, v) { DATA.depth[r][c] = v; });
+    grid(h, 'ap / ae (×Ø) za EM in glavo', 'EM: ap×Ø, ae×Ø; glava: ap v mm, ae×Ø.', ['EM ap', 'EM ae', 'Glava ap mm', 'Glava ae'], M, function (r, c) { return DATA.apae[r][c]; }, function (r, c, v) { DATA.apae[r][c] = v; });
+    grid(h, 'Splošno', 'Površina s skorjo: CS faktor; izkoristek vretena; eksponent mc; premer jedra za upogib; delež radialne sile.', ['vrednost'],
+      ['Skorja CS faktor', 'Izkoristek', 'mc', 'Jedro / Ø', 'Radialna / rezalna sila'],
+      function (r) { return [DATA.skorjaCS, DATA.eff, DATA.mc, DATA.coreRatio, DATA.radialRatio][r]; },
+      function (r, c, v) { if (r === 0) DATA.skorjaCS = v; else if (r === 1) DATA.eff = v; else if (r === 2) DATA.mc = v; else if (r === 3) DATA.coreRatio = v; else DATA.radialRatio = v; });
+  }
+
+  function applyTheme() {
+    var plain = $('s_theme').value === 'plain';
+    $('css_wild').media = plain ? 'not all' : 'all';
+    $('css_plain').media = plain ? 'all' : 'not all';
+    document.body.className = (plain || !$('s_anim').checked) ? 'calm' : '';
+  }
+  function clearCalculatorInputs() {
+    var ids = ['f_id', 'f_d', 'f_z', 'f_L', 'f_flute', 'f_thread', 'f_pitch', 'f_ap', 'f_ae'];
+    var i, quickIds = ['q_d', 'q_z', 'q_cs', 'q_n', 'q_fz', 'q_f'];
+    for (i = 0; i < ids.length; i++) $(ids[i]).value = '';
+    $('f_tip').value = DATA.tools[0];
+    $('f_mat').value = '0';
+    $('f_csm').value = 'sredina';
+    $('f_hunit').value = 'HB'; setHardDefault();
+    $('f_skorja').checked = false;
+    $('f_tmat').value = '0'; $('f_coat').value = '0'; $('f_hold').value = '0';
+    $('f_cool').value = '0'; $('f_cutter').value = '-1'; $('f_op').value = '2'; $('f_tint').value = '1';
+    for (i = 0; i < quickIds.length; i++) $(quickIds[i]).value = '';
+    quick(); recalc();
+  }
+
+  /* ---------- inicializacija ---------- */
+  function init() {
+    loadAll();
+    var i;
+    fill($('f_tip'), DATA.tools, null, true); fill($('f_mat'), DATA.mats); fill($('f_tmat'), DATA.tmatNames); fill($('f_coat'), DATA.coatNames);
+    fill($('f_hold'), DATA.holdNames); fill($('f_cool'), DATA.coolNames); fill($('f_cutter'), DATA.cutterNames, '— ni določeno —'); fill($('f_op'), DATA.opNames);
+    $('f_cutter').value = '-1'; $('f_op').value = '2';
+    setHardDefault();
+    restoreLast();
+    var ids = ['f_id', 'f_tip', 'f_d', 'f_z', 'f_L', 'f_flute', 'f_mat', 'f_hard', 'f_hunit', 'f_skorja', 'f_tmat', 'f_coat', 'f_hold', 'f_cool', 'f_cutter', 'f_op', 'f_ap', 'f_ae', 'f_csm', 'f_thread', 'f_tint', 'f_pitch'];
+    for (i = 0; i < ids.length; i++) {
+      (function (id) {
+        var e = $(id), h = function () { recalc(); };
+        e.onchange = h; if (e.type === 'text') e.oninput = h;
+      })(ids[i]);
+    }
+    $('f_mat').onchange = function () { setHardDefault(); recalc(); };
+    $('f_hunit').onchange = function () { onUnitChange(); recalc(); };
+    $('f_id').onchange = function () { var j = findTool($('f_id').value); if (j >= 0) toolToForm(TOOLS[j]); recalc(); };
+    $('btn_save').onclick = function () { saveTool(); };
+    $('btn_clear_form').onclick = function () { clearCalculatorInputs(); };
+    var qs = ['q_d', 'q_z', 'q_cs', 'q_n', 'q_fz', 'q_f'];
+    for (i = 0; i < qs.length; i++) $(qs[i]).oninput = quick;
+    $('q_clear').onclick = function () { for (var j = 0; j < qs.length; j++) $(qs[j]).value = ''; quick(); };
+    var tabs = ['calc', 'tools', 'mach', 'data', 'help'];
+    for (i = 0; i < tabs.length; i++) (function (t) { $('btn_' + t).onclick = function () { showTab(t); }; })(tabs[i]);
+    $('tfilter').oninput = renderTools;
+    $('btn_export').onclick = function () { $('csvbox').value = toCSV(); download('orodja.csv', $('csvbox').value); };
+    $('btn_import').onclick = function () { var n = fromCSV($('csvbox').value); alert('Uvoženih / posodobljenih orodij: ' + n); };
+    $('csvfile').onchange = function () {
+      var f = $('csvfile').files[0]; if (!f) return; var rd = new FileReader();
+      rd.onload = function () { $('csvbox').value = rd.result; var n = fromCSV(rd.result); alert('Uvoženih / posodobljenih orodij: ' + n); }; rd.readAsText(f, 'utf-8');
+    };
+    var ms = ['m_name', 'm_rpm', 'm_kw', 'm_nm', 'm_safe', 'm_conf', 'r_rpm', 'r_feed'];
+    for (i = 0; i < ms.length; i++) { $(ms[i]).onchange = readMach; }
+    $('btn_reset').onclick = function () { if (confirm('Vse tabele ponastavim na privzete vrednosti?')) { DATA = FS.defaults(); saveData(); renderData(); recalc(); } };
+    LS_OK = lsSet('fs_test', '1');
+    if (!LS_OK) $('lsnote').style.display = 'block';
+    $('s_theme').value = lsGet('fs_theme') === 'plain' ? 'plain' : 'wild';
+    $('s_anim').checked = lsGet('fs_anim') !== '0';
+    $('s_theme').onchange = function () { lsSet('fs_theme', $('s_theme').value); applyTheme(); };
+    $('s_anim').onchange = function () { lsSet('fs_anim', $('s_anim').checked ? '1' : '0'); applyTheme(); };
+    applyTheme();
+    showTab('calc'); recalc(); quick();
+  }
+  window.onload = init;
+})();
+
+</script>
+</body>
+</html>
